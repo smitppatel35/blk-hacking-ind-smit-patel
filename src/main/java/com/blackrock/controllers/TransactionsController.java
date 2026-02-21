@@ -1,13 +1,16 @@
 package com.blackrock.controllers;
 
-import com.blackrock.models.*;
 import com.blackrock.dto.*;
-import com.blackrock.services.*;
+import com.blackrock.services.TemporalFilterService;
+import com.blackrock.services.TransactionParseService;
+import com.blackrock.services.TransactionValidationService;
 import com.blackrock.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -53,17 +56,11 @@ public class TransactionsController {
     @PostMapping("transactions:filter")
     public Object filter(@RequestBody FilterRequest req) {
 
-        // 1. parse transactions
-//        var parsed = parseService.parse(req.getTransactions());
-
-//        List<InvalidProperty> invalids = new ArrayList<>();
         ValidationResult validate = validationService.validate(req.getWage(), req.getTransactions());
 
         if (!validate.getInvalid().isEmpty()) {
             return validate;
         }
-
-//        if (invalids.isEmpty())
 
         // 2. apply Q+P rules
         var updatedTx = temporalService.applyQandP(validate.getValid(), req.getQ(), req.getP());

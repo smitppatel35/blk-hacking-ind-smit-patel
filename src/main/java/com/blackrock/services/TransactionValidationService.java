@@ -2,7 +2,6 @@ package com.blackrock.services;
 
 import com.blackrock.dto.InvalidProperty;
 import com.blackrock.dto.InvalidTransaction;
-import com.blackrock.dto.TransactionResponse;
 import com.blackrock.dto.ValidationResult;
 import com.blackrock.models.Transaction;
 import com.blackrock.utils.CeilingUtils;

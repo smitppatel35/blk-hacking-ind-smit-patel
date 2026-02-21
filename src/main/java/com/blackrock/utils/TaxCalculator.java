@@ -17,12 +17,12 @@ public class TaxCalculator {
 
         if (income <= 1500000) {
             return (300000 * 0.10) + (200000 * 0.15) +
-                   ((income - 1200000) * 0.20);
+                    ((income - 1200000) * 0.20);
         }
 
         // above 15L
         return (300000 * 0.10) + (200000 * 0.15) + (300000 * 0.20) +
-               ((income - 1500000) * 0.30);
+                ((income - 1500000) * 0.30);
     }
 
     public static double computeTaxBenefit(double income, double deduction) {

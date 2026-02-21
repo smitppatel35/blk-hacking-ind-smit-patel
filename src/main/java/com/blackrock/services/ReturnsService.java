@@ -1,14 +1,16 @@
 package com.blackrock.services;
 
-import com.blackrock.models.PeriodK;
-import com.blackrock.dto.SavingsByDates;
 import com.blackrock.dto.ReturnsResponse;
+import com.blackrock.dto.SavingsByDates;
+import com.blackrock.models.PeriodK;
 import com.blackrock.utils.DateUtils;
 import com.blackrock.utils.InterestUtils;
 import com.blackrock.utils.TaxCalculator;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReturnsService {
@@ -34,7 +36,7 @@ public class ReturnsService {
 
             double finalAmount = InterestUtils.calculateNpsFinal(principal, years);
 
-            double realValue = InterestUtils.inflationAdjust(finalAmount, inflation/100, years);
+            double realValue = InterestUtils.inflationAdjust(finalAmount, inflation / 100, years);
 
             double npsLimit = Math.min(principal, Math.min(wage * 0.10, 200000));
             double taxBenefit = TaxCalculator.computeTaxBenefit(wage, npsLimit);
@@ -47,8 +49,6 @@ public class ReturnsService {
                     Math.round(taxBenefit)
             ));
         }
-
-
 
         ReturnsResponse resp = new ReturnsResponse();
         resp.setTransactionsTotalAmount(totalAmount);
@@ -80,7 +80,7 @@ public class ReturnsService {
             totalAmount += principal;
 
             double finalAmount = InterestUtils.calculateIndexFinal(principal, years);
-            double realValue = InterestUtils.inflationAdjust(finalAmount, inflation/100, years);
+            double realValue = InterestUtils.inflationAdjust(finalAmount, inflation / 100, years);
 
             savings.add(new SavingsByDates(
                     DateUtils.format(k.getStart()),
