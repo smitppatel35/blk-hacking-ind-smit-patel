@@ -5,6 +5,9 @@ import com.blackrock.dto.TransactionRequest;
 import com.blackrock.services.*;
 import com.blackrock.utils.DateUtils;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,7 +34,11 @@ public class PPeriodTest {
         p2.setStart(DateUtils.parse("2023-10-05 00:00:00"));
         p2.setEnd(DateUtils.parse("2023-10-15 23:59:00"));
 
-        var updated = service.applyQandP(tx, List.of(), List.of(p1, p2));
+        List<PeriodP> plist = new ArrayList<>();
+        plist.add(p1);
+        plist.add(p2);
+
+        var updated = service.applyQandP(tx, Collections.emptyList(), plist);
 
         // Remanent originally = 50 → plus 20 + 30 = 100
         assertEquals(100, updated.get(0).getRemanent());

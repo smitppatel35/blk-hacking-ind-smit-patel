@@ -6,6 +6,8 @@ import com.blackrock.services.*;
 import com.blackrock.utils.DateUtils;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,7 +39,11 @@ public class QPeriodTest {
         q2.setStart(DateUtils.parse("2023-07-05 00:00:00"));
         q2.setEnd(DateUtils.parse("2023-07-20 23:59:59"));
 
-        var updated = service.applyQandP(tx, List.of(q1, q2), List.of());
+        List<PeriodQ> plist = new ArrayList<>();
+        plist.add(q1);
+        plist.add(q2);
+
+        var updated = service.applyQandP(tx, plist, Collections.emptyList());
 
         assertEquals(100, updated.get(0).getRemanent());
     }

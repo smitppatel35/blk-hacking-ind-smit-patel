@@ -1,4 +1,5 @@
-#docker build -t blk-hacking-ind-smit-patel .
+# docker build -t blk-hacking-ind-smit-patel .
+# docker run -p 5477:5477 blk-hacking-ind-smit-patel
 
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 LABEL authors="Smit Patel"
