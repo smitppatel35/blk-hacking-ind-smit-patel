@@ -6,7 +6,7 @@ public class CeilingUtils {
         if (amount <= 0) return 0;
 
         double remainder = amount % 100;
-        if (remainder == 0) return amount;
+        if (remainder == 0) return amount + 100;
 
         return amount + (100 - remainder);
     }
